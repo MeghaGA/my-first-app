@@ -1,5 +1,5 @@
-.name-prompt,
-.greeting-screen {
+/* Topic prompt */
+.topic-prompt {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,19 +9,25 @@
   text-align: center;
 }
 
-.name-prompt h1 {
+.topic-prompt h1 {
+  margin-bottom: 0.5rem;
+}
+
+.topic-hint {
+  color: var(--text);
+  font-size: 0.95rem;
   margin-bottom: 1.5rem;
 }
 
-.name-prompt form {
+.topic-prompt form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   width: 100%;
-  max-width: 20rem;
+  max-width: 22rem;
 }
 
-.name-prompt input {
+.topic-prompt input {
   font: inherit;
   padding: 0.75rem 1rem;
   border: 2px solid var(--border);
@@ -31,45 +37,191 @@
   transition: border-color 0.2s;
 }
 
-.name-prompt input:focus {
+.topic-prompt input:focus {
   outline: none;
-  border-color: var(--accent);
+  border-color: var(--ring);
 }
 
-.name-prompt input::placeholder {
+.topic-prompt input::placeholder {
   color: var(--text);
 }
 
-.name-prompt button {
+.topic-prompt input[aria-invalid="true"] {
+  border-color: var(--destructive, #dc2626);
+}
+
+.topic-prompt button {
   font: inherit;
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 8px;
-  background: var(--accent);
-  color: white;
+  background: var(--primary, #08060d);
+  color: var(--primary-foreground, #fff);
   cursor: pointer;
   font-weight: 500;
   transition: opacity 0.2s;
 }
 
-.name-prompt button:hover {
+.topic-prompt button:hover {
   opacity: 0.9;
 }
 
-.name-prompt button:focus-visible {
-  outline: 2px solid var(--accent);
+.topic-prompt button:focus-visible {
+  outline: 2px solid var(--ring);
   outline-offset: 2px;
 }
 
-.greeting {
-  font-size: 2rem;
+.topic-error {
+  margin-top: 1rem;
+  color: var(--destructive, #dc2626);
   font-weight: 500;
+}
+
+/* Crossword page */
+.crossword-page {
+  padding: 2rem;
+  max-width: 56rem;
+  margin: 0 auto;
+}
+
+.crossword-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.crossword-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  text-transform: capitalize;
+}
+
+.btn-secondary {
+  font: inherit;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
   color: var(--text-h);
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: var(--muted, #f4f3ec);
+}
+
+.btn-secondary:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Crossword grid */
+.crossword-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+@media (min-width: 640px) {
+  .crossword-wrap {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.crossword-grid-wrap {
+  flex-shrink: 0;
+}
+
+.crossword-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 2.25rem);
+  grid-template-rows: repeat(var(--rows), 2.25rem);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.crossword-cell {
+  background: var(--background, var(--bg));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.crossword-cell.block {
+  background: oklch(0.25 0 0);
+}
+
+.crossword-cell.letter input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  text-align: center;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--foreground, var(--text-h));
+  padding: 0;
+}
+
+.crossword-cell.letter input:focus {
+  outline: none;
+  background: var(--accent-bg, rgba(170, 59, 255, 0.08));
+}
+
+.cell-num {
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--muted-foreground, var(--text));
+  pointer-events: none;
+}
+
+/* Clues */
+.crossword-clues {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 18rem;
+}
+
+@media (min-width: 640px) {
+  .crossword-clues {
+    flex: 1;
+    max-width: 24rem;
+  }
+}
+
+.clue-list h3 {
+  font-size: 1rem;
+  margin: 0 0 0.5rem;
+  color: var(--text-h);
+}
+
+.clue-list ul {
+  list-style: none;
+  padding: 0;
   margin: 0;
 }
 
-@media (max-width: 1024px) {
-  .greeting {
-    font-size: 1.5rem;
-  }
+.clue-list li {
+  padding: 0.25rem 0;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.clue-list li strong {
+  margin-right: 0.35rem;
+  color: var(--text-h);
 }
